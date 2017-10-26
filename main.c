@@ -116,7 +116,7 @@ struct alignedRead* get(bam1_t *b /*, int storeRgID, char** rgID*/){
             // base. I want to adjust this so that the read start refers to the first base in
             // the read.
             if (i == 0 && cigarFlag == 4){
-                readStart -= cigarFlagLen;
+                //readStart -= cigarFlagLen;
             }
         }
         
@@ -138,7 +138,7 @@ struct alignedRead* get(bam1_t *b /*, int storeRgID, char** rgID*/){
         
         //Read_SetUnCompressed(theRead);
         printf("%s\t%u\t%u\t%u\t%u\t%s\t%u\t%u\t%u\t%s\t%s\t%s\n",
-                theRead->qname, theRead->flag, theRead->chromID, theRead->pos,
+                theRead->qname, theRead->flag, theRead->chromID, (theRead->pos+1),
                 theRead->mapq, "CIGAR", theRead->mateChromID, theRead->matePos, 
                 0, theRead->seq, "QUAL", "OPTIONAL_TAGS");
         
