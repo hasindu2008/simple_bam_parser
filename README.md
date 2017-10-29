@@ -32,10 +32,14 @@ The source files are
 
 ## Running
 
-First clone the repository and build htslib
+First clone the repository
 ```
-got clone https://github.com/hasindu2008/simple_bam_parser.git
-cd simple_bam_parser/htslib && make clean && make
+git clone https://github.com/hasindu2008/simple_bam_parser.git
+```
+
+I have put a copy of htslib. Build it by the following command. 
+```
+cd simple_bam_parser/htslib && make clean && ./configure && make
 ```
 
 Then build the example programs
