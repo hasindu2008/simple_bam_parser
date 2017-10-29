@@ -23,14 +23,14 @@ At the moment there are 3 example programs :
 
 The source files are  
 
-randomacess.c           - source code for 1
-sequentialaccess.c      - source code for 2
-write.c                 - source code for 3
+- randomacess.c           : source code for 1
+- sequentialaccess.c      : source code for 2
+- write.c                 : source code for 3
 
-common.h and common.c   : common functions used in example programs
+- common.h and common.c   : common functions used in example programs
 
 
-##Running
+## Running
 
 First clone the repository and build htslib
 ```
@@ -44,11 +44,11 @@ cd .. && make
 ```
 
 Then run a program that you wish,
-
+```
 ./randomacess input.bam chr:start_pos-stop_pos 
 ./sequentialaccess input.bam
 ./write input.bam output.bam
-
+```
 Some examples : 
 ```
 ./randomacess test/sample.bam 1:10000-10005
