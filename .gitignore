@@ -1,3 +1,5 @@
 *.txt
+test/*.txt
 sequentialaccess
 randomacess
+write

@@ -6,6 +6,7 @@ INC = -Ihtslib
 all: randomacess.c htslib/libhts.a  sequentialaccess.c common.c common.h
 	$(CC) randomacess.c common.c htslib/libhts.a $(CLFLAGS) $(INC) $(LIBS) -o randomacess
 	$(CC) sequentialaccess.c common.c htslib/libhts.a $(CLFLAGS) $(INC) $(LIBS) -o sequentialaccess
+	$(CC) write.c common.c htslib/libhts.a $(CLFLAGS) $(INC) $(LIBS) -o write
 
 clean: 
-	rm randomacess sequentialaccess
+	rm randomacess sequentialaccess write

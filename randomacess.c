@@ -25,16 +25,22 @@ int main(int argc,char** argv){
 	bam1_t *b= NULL;
     bam_hdr_t *header = NULL;
 
-    //open the BAM file (though called sam_open is opens bam files too :P)
+    //open the BAM file for reading (though called sam_open it opens bam files too :P)
     in = sam_open(argv[1], "r");
     errorCheckNULL(in);
     
-    //get the sam header. Need to check how to parse this
+    //get the sam header. 
     if ((header = sam_hdr_read(in)) == 0){
         fprintf(stderr,"No sam header?\n");
         exit(EXIT_FAILURE);
     }
-    
+    //print the chromosome names in the header
+    //see the bam_hdr_t struct in htslib/sam.h for parsing the rest of the stuff in header
+    int i;
+    for(i=0; i< (header->n_targets); i++){
+        printf("Chromosome ID %d = %s\n",i,(header->target_name[i]));
+    } 
+        
     //load the index file for BAM
 	idx = sam_index_load(in, argv[1]);
 	errorCheckNULL(idx);
@@ -43,19 +49,21 @@ int main(int argc,char** argv){
 	iter  = sam_itr_querys(idx, header, argv[2]); 
 	errorCheckNULL(iter);
     
-    //should check what this initialisation is
+    //this must be the initialisation for the structure that stores a read (need to verify)
 	b = bam_init1();
     
+    //my structure for a read (see common.h)
     struct alignedRead* myread = (struct alignedRead*)malloc(sizeof(struct alignedRead));
     
-    //repeat until all reads in the regions are retrieved
+    //repeat until all reads in the region are retrieved
 	while ( sam_itr_next(in, iter, b) >= 0){
-        getRead(myread, b);
-        printRead(myread);  
+        getRead(myread, b); //copy the current read to the myread structure. See common.c for information
+        printRead(myread,header);  //print data in  myread structure. See common.c for information
 	}
-     free(myread);
+    
     
     //wrap up
+    free(myread);
 	hts_idx_destroy(idx);
 	hts_itr_destroy(iter);
 	bam_destroy1(b);
